@@ -1,7 +1,7 @@
 """
 app.py
 
-English-only Police Recognition Analytics Platform
+Police Recognition Analytics Platform
 - Uses NER + gazetteer + fuzzy matching to extract officer names, departments, locations.
 - Sentiment, summarization, QA, PDF summary export, CSV/JSON bulk export.
 - Works with text input or uploaded TXT/PDF files.
@@ -543,7 +543,7 @@ def create_pdf_summary(result: Dict) -> BytesIO:
 # -----------------------
 def main():
     st.set_page_config(page_title="Police Recognition Analytics (EN-only)", layout="wide", initial_sidebar_state="expanded")
-    st.title("🚔 Police Recognition Analytics (English-only)")
+    st.title("🚔 Police Recognition Analytics")
 
     # Load datasets (optional)
     datasets = load_all_datasets()
@@ -602,13 +602,13 @@ def main():
 
     # --- Tab1: Process Feedback ---
     with tab1:
-        st.header("📝 Process New Feedback (English text only)")
+        st.header("📝 Process New Feedback")
         col1, col2 = st.columns([2,1])
         with col1:
             input_method = st.radio("Input method", ["✍️ Text Input", "📄 File Upload"], horizontal=True)
             text_to_process = ""
             if input_method == "✍️ Text Input":
-                text_to_process = st.text_area("Enter English feedback, article, or document:", height=300, placeholder="Officer Smith from Central Police Station...")
+                text_to_process = st.text_area("Enter feedback, article, or document:", height=300, placeholder="Officer Smith from Central Police Station...")
 
             else:
                 uploaded = st.file_uploader("Upload TXT or PDF", type=["txt","pdf"])
@@ -634,8 +634,6 @@ def main():
 
         with col2:
             st.info("""
-            **English-only mode enabled**
-            - No automatic translation
             - NER + gazetteer for officer extraction
             - Sentiment, summarization and export
             """)
@@ -647,7 +645,7 @@ def main():
         st.markdown("---")
         if st.button("🚀 Analyze Feedback"):
             if not text_to_process or not text_to_process.strip():
-                st.warning("Please provide English text or upload a TXT/PDF.")
+                st.warning("Please provide text or upload a TXT/PDF.")
             else:
                 with st.spinner("Analyzing..."):
                     res = analyze_text(text_to_process, models, datasets, gazetteer)
@@ -741,7 +739,7 @@ def main():
             st.info("Process at least one feedback item first.")
         else:
             all_texts = " ".join([d['original_text'] for d in st.session_state.processed_data])
-            question = st.text_input("Ask a question about the processed feedback (English):", key="qa_input")
+            question = st.text_input("Ask a question about the processed feedback:", key="qa_input")
             if st.button("Get Answer"):
                 if question.strip():
                     with st.spinner("Searching..."):
