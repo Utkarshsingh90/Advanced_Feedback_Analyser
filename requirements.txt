@@ -7,3 +7,10 @@ torch
 sentencepiece
 requests
 fasttext-wheel
+reportlab
+pandas
+rapidfuzz
+python-dateutil
+tokenizers
+
+
